@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <h1 class="header-sub">Hello!</h1>
+  <?php require './views/home.php' ?>
   
 </body>
 </html>
