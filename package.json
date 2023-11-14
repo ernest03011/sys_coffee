@@ -1,0 +1,15 @@
+{
+  "name": "sys_coffee",
+  "version": "1.0.0",
+  "description": "A website about coffee",
+  "main": "index.js",
+  "scripts": {
+    "tailwind": "npx tailwindcss -i ./src/input.css -o ./css/styles.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.3.5"
+  }
+}

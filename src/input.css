@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.header-sub{
+  color: red;
+  font-weight: bold;
+  background-color: yellow;
+}
