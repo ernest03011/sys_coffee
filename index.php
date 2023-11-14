@@ -1,3 +1,17 @@
+<?php 
+    // require 'functions.php';
+
+    // require 'Database.php';
+  
+    // $db = new Database();
+  
+    // $users = $db->query("select * from users")->fetchAll(PDO::FETCH_ASSOC);
+  
+    // dd($users);
+    // dd($_SERVER);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
