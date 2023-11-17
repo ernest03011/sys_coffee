@@ -6,7 +6,18 @@ class Database
 
   public function __construct()
   {
-    $dsn = "mysql:host=localhost;port=3306;dbname=coffee_db;user=root;password=anaphoric-panchions-sdeign;charset=utf8mb4";
+    $config = require 'config.php';
+    $databaseSettings = $config['database'];
+
+    $host = $databaseSettings['host'];
+    $user = $databaseSettings['user'];
+    $port = $databaseSettings['port'];
+    $dbname = $databaseSettings['dbname'];
+    $charset = $databaseSettings['charset'];
+    $password = $databaseSettings['password'];
+
+    $dsn = "mysql:host=$host;port=$port;dbname=$dbname;user=$user;password=$password;charset=$charset";
+    dd($dsn);
 
     $this->connection = new PDO($dsn);
   }
