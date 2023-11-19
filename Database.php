@@ -17,7 +17,6 @@ class Database
     $password = $databaseSettings['password'];
 
     $dsn = "mysql:host=$host;port=$port;dbname=$dbname;user=$user;password=$password;charset=$charset";
-    dd($dsn);
 
     $this->connection = new PDO($dsn);
   }
