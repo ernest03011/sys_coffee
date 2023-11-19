@@ -3,7 +3,52 @@
 @tailwind utilities;
 
 .header-sub{
-  color: red;
+  color: #8B4513;
   font-weight: bold;
-  background-color: yellow;
+  background-color: white;
+}
+
+h1 {
+  font-size: 2.5rem;
+  line-height: 3.25rem;
+  font-weight: bold;
+  color: #8B4513; /* Primary Brown */
+}
+
+.subtitle1 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: bold;
+  color: #3E2723; /* Espresso - Accent Color */
+}
+
+.body1 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: regular;
+  color: #000; /* Black */
+}
+
+.button {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: bold;
+  color: #FFF8E1; /* Creamy Beige - Secondary Color */
+  background-color: #8B4513; /* Primary Brown */
+  /* Add hover effect if desired */
+}
+
+.caption {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: regular;
+  color: #607D8B; /* Blue-Grey - Info Color */
+}
+
+.overline {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #3E2723; /* Espresso - Accent Color */
 }
