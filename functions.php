@@ -1,4 +1,5 @@
 <?php 
+
   function dd($value){
     echo '<pre>';
     var_dump($value);
@@ -6,4 +7,11 @@
 
     die();
   }
-?>
+
+  function base_path($path){
+    return BASE_PATH . $path;
+  }
+
+  function view($path){
+    return base_path('views/' . $path);
+  }
