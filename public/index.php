@@ -2,6 +2,8 @@
 
 const BASE_PATH = __DIR__ . '/../';
 
+session_start();
+
 require BASE_PATH . 'functions.php';
 $router = require base_path('Router.php');
 require base_path('routes.php');
