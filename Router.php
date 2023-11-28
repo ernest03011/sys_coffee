@@ -4,44 +4,46 @@ class Router {
 
   protected $routes = [];
 
-  public function get($url, $controller){
+  public function add($method, $uri, $controller){
+
     $this ->routes[] = [
-      'url' => $url,
+      'uri' => $uri,
       'controller' => $controller,
-      'method' => 'GET'
+      'method' => $method,
+      'middleware' => null
     ];
+
+    return $this;
 
   }
 
-  public function post($url, $controller){
-    $this ->routes[] = [
-      'url' => $url,
-      'controller' => $controller,
-      'method' => 'POST'
-    ];
+  public function get($uri, $controller){
+    
+    return $this->add('GET', $uri, $controller);
 
   }
 
-  public function delete($url, $controller){
-    $this ->routes[] = [
-      'url' => $url,
-      'controller' => $controller,
-      'method' => 'DELETE'
-    ];
+  public function post($uri, $controller){
+    return $this->add('POST', $uri, $controller);
   }
 
-  public function patch($url, $controller){
-    $this ->routes[] = [
-      'url' => $url,
-      'controller' => $controller,
-      'method' => 'PATCH'
-    ];
+  public function delete($uri, $controller){
+    return $this->add('DELETE', $uri, $controller);
+
   }
 
-  public function route($url, $method){
+  public function patch($uri, $controller){
+    return $this->add('PATCH', $uri, $controller);
+  }
+
+  public function route($uri, $method){
+
     foreach($this->routes as $route){
-      if($route['url'] == $url && $route['method'] == strtoupper($method)){
-        return require $route['controller'];
+      if($route['uri'] === $uri && $route['method'] === strtoupper($method)){
+
+        Middleware::resolve($route['middleware']);
+
+        return require base_path($route['controller']);
       }
     }
 
