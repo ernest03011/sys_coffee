@@ -1,5 +1,9 @@
 <?php
 
+require base_path('Middleware/Middleware.php');
+require base_path('Middleware/Authenticated.php');
+require base_path('Middleware/Guest.php');
+
 class Router {
 
   protected $routes = [];
