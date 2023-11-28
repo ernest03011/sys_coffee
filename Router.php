@@ -1,8 +1,6 @@
 <?php
 
 require base_path('Middleware/Middleware.php');
-require base_path('Middleware/Authenticated.php');
-require base_path('Middleware/Guest.php');
 
 class Router {
 
@@ -38,6 +36,12 @@ class Router {
 
   public function patch($uri, $controller){
     return $this->add('PATCH', $uri, $controller);
+  }
+
+  public function only($key){
+    $this->routes[array_key_last($this->routes)]['middleware'] = $key;
+
+    return $this;
   }
 
   public function route($uri, $method){
