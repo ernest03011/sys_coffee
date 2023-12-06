@@ -7,12 +7,13 @@
   <main class="mt-4">
     
     <div class="container mx-auto my-20 p-4">
+    
+        <?= $_SESSION['user']['email'] ?? 'Guest' ?>
   
       <!-- Featured Recipe -->
       <section class="mb-8 mt-8">
           <h2 class="mb-4 text-center subtitle1">Featured Recipe</h2>
-  
-  
+
           <!-- Featured Recipe Cards -->
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <!-- Recipe -->
@@ -67,24 +68,26 @@
   
       <!-- Ratings (Visible after login) -->
       <!-- @auth -->
-      <section>
-          <h2 class="subtitle1 mb-4 text-center">Rate a Recipe</h2>
-  
-          <!-- Rating Form -->
-          <div class="bg-white shadow-md rounded-md p-4">
-              <h3 class="text-xl font-semibold mb-2">Rate the Classic Espresso</h3>
-              <!-- Rating Stars (you can use a library for this) -->
-              <div class="flex items-center mb-4">
-                  <i class="fas fa-star text-yellow-500 mr-1"></i>
-                  <i class="fas fa-star text-yellow-500 mr-1"></i>
-                  <i class="fas fa-star text-yellow-500 mr-1"></i>
-                  <i class="fas fa-star text-yellow-500 mr-1"></i>
-                  <i class="far fa-star text-yellow-500"></i>
-              </div>
-              <button class="bg-primary-brown text-white px-4 py-2 rounded-md">Submit Rating</button>
-          </div>
-      </section>
+      <?php if(isset($_SESSION['user']['email'])) : ?>  
+            <section>
+                <h2 class="subtitle1 mb-4 text-center">Rate a Recipe</h2>
+        
+                <!-- Rating Form -->
+                <div class="bg-white shadow-md rounded-md p-4">
+                    <h3 class="text-xl font-semibold mb-2">Rate the Classic Espresso</h3>
+                    <!-- Rating Stars (you can use a library for this) -->
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-star text-yellow-500 mr-1"></i>
+                        <i class="fas fa-star text-yellow-500 mr-1"></i>
+                        <i class="fas fa-star text-yellow-500 mr-1"></i>
+                        <i class="fas fa-star text-yellow-500 mr-1"></i>
+                        <i class="far fa-star text-yellow-500"></i>
+                    </div>
+                    <button class="bg-primary-brown text-white px-4 py-2 rounded-md">Submit Rating</button>
+                </div>
+            </section>
       <!-- @endauth -->
+      <?php endif; ?>
   
     </div>
 
