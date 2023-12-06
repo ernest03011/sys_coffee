@@ -3,29 +3,44 @@
 class Database
 {
   public $connection;
+  public $statement;
 
-  public function __construct()
+  public function __construct($config)
   {
-    $config = require 'config.php';
-    $databaseSettings = $config['database'];
+    $dsn = 'mysql:' . http_build_query($config, '', ';');
 
-    $host = $databaseSettings['host'];
-    $user = $databaseSettings['user'];
-    $port = $databaseSettings['port'];
-    $dbname = $databaseSettings['dbname'];
-    $charset = $databaseSettings['charset'];
-    $password = $databaseSettings['password'];
+    $this->connection = new PDO($dsn, /* username */ null, /* password */ null, [
+      PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ]);
 
-    $dsn = "mysql:host=$host;port=$port;dbname=$dbname;user=$user;password=$password;charset=$charset";
-
-    $this->connection = new PDO($dsn);
   }
 
-  public function query($query)
+  public function query($query, $params = [])
   {
-    $statement = $this->connection->prepare($query);
-    $statement->execute();
+    $this->statement = $this->connection->prepare($query);
+    $this->statement->execute($params);
 
-    return $statement;
+    return $this;
   }
+
+  public function get(){
+    return $this->statement->fetchAll();
+  }
+
+  public function find(){
+    return $this->statement->fetch();
+  }
+
+  public function findOrFail(){
+    $result = $this->find();
+
+    if(! $result){
+      abort();
+    }
+
+    return $result;
+  }
+
+
 }
+  
