@@ -20,9 +20,23 @@
         <a href="/about" class="text-sm font-semibold leading-6 text-gray-900">About us</a>
       </div>
       <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-        <a href="/login" class="text-sm font-semibold leading-6 text-gray-900">Log in <span aria-hidden="true">&rarr;</span></a>
+
+        <?php if(! isset($_SESSION['user']['email'])) : ?>        
+          <a href="/login" class="text-sm font-semibold leading-6 text-gray-900">Log in <span aria-hidden="true">&rarr;</span></a>
+        <?php endif; ?>
+
+        <?php if(isset($_SESSION['user']['email'])) : ?>        
+
+          <form action="/logout" method="POST">
+            <button clas="text-sm font-semibold leading-6 text-gray-900">Log out</button>
+          </form>
+
+        <?php endif; ?>
+        
+
       </div>
     </nav>
+    
     <!-- Mobile menu, show/hide based on menu open state. -->
     <div class="lg:hidden" role="dialog" aria-modal="true">
       <!-- Background backdrop, show/hide based on slide-over state. -->
