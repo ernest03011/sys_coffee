@@ -13,6 +13,10 @@
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
       <form class="space-y-6" action="/register" method="POST">
         <!-- Username -->
+        <?php if(isset($errors['username'])) : ?>
+          <p class="text-red-500"> <?= $errors['username'] ?>  </p>
+        <?php endif; ?>
+
         <div>
           <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Username: </label>
           <div class="mt-2">
@@ -21,6 +25,10 @@
         </div>
         
         <!-- Email -->
+        <?php if(isset($errors['email'])) : ?>
+          <p class="text-red-500"> <?= $errors['email'] ?>  </p>
+        <?php endif; ?>
+
         <div>
           <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
           <div class="mt-2">
@@ -29,6 +37,10 @@
         </div>
 
         <!-- Password -->
+        <?php if(isset($errors['password'])) : ?>
+          <p class="text-red-500"> <?= $errors['password'] ?>  </p>
+        <?php endif; ?>
+
         <div class="flex items-center justify-between">
             <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
             <div class="mt-2">
