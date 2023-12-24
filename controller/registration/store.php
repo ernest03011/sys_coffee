@@ -30,7 +30,10 @@ if(! empty($errors)){
 
 // Query the database to check if a user with the entered username already exists.
 
-require base_path('Database.php');
+if (!class_exists('Database')) {
+  // If not, require it
+  require base_path('Database.php');
+}
 $config = require base_path('config.php');
 
 $db = new Database($config['database']);
