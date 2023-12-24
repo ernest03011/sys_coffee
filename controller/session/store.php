@@ -2,6 +2,12 @@
 
 require base_path('Validator.php');
 
+if(!class_exists('JwtHandler')){
+  // If not, require it
+  require base_path("JWTHandler.php");
+}
+
+
 // Get the variables from the /login form
 
 $email = $_POST['email'];
@@ -28,7 +34,11 @@ if(! empty($errors)){
 
 // Retrieve the users from the database
 
-require base_path('Database.php');
+if (!class_exists('Database')) {
+  // If not, require it
+  require base_path('Database.php');
+}
+
 $config = require base_path('config.php');
 
 $db = new Database($config['database']);
@@ -49,11 +59,20 @@ $is_valid_password = password_verify($password, $user['password']);
 
 if($user && $is_valid_password){
  
-    $_SESSION['user'] = [
-      'email' => $email
-    ];
-  
     session_regenerate_id(true);
+
+    $jwt = new JwtHandler();
+
+    //Payload can be anything you want to store in the token
+    $payload = $user['user_id'];
+
+    $jwtToken = $jwt->encode("http://localhost:8080/", $payload);
+
+    // echo "$token";
+    $_SESSION['user'] = [ 
+      'email' => $email,
+      'jwt_token' => (string) $jwtToken
+    ];
   
     header('location: /');
     exit();
