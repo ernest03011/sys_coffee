@@ -14,32 +14,32 @@
       <section class="mb-8 mt-8">
           <h2 class="mb-4 text-center subtitle1">Featured Recipe</h2>
 
-          <!-- Featured Recipe Cards -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <!-- Recipe -->
-            <div class="bg-white shadow-md rounded-md p-4">
-                <h3 class="text-xl font-semibold mb-2">Classic Espresso</h3>
-                <p class="text-gray-600 mb-4">A simple and strong espresso shot.</p>
-                <!-- Add more details like image, author, etc. -->
-                <a href="/recipes/1" class="text-primary-brown hover:underline">View Recipe</a>
-            </div>        
-            <div class="bg-white shadow-md rounded-md p-4">
-                <h3 class="text-xl font-semibold mb-2">Classic Espresso</h3>
-                <p class="text-gray-600 mb-4">A simple and strong espresso shot.</p>
-                <!-- Add more details like image, author, etc. -->
-                <a href="/recipes/1" class="text-primary-brown hover:underline">View Recipe</a>
-            </div>        
-            <div class="bg-white shadow-md rounded-md p-4">
-                <h3 class="text-xl font-semibold mb-2">Classic Espresso</h3>
-                <p class="text-gray-600 mb-4">A simple and strong espresso shot.</p>
-                <!-- Add more details like image, author, etc. -->
-                <a href="/recipes/1" class="text-primary-brown hover:underline">View Recipe</a>
-            </div>        
+          <!-- Featured Recipe Cards --> 
+  
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-center">
+    
+              <?php
+                  foreach ($recipes as $recipe) {
+                      echo "<div class='bg-white shadow-md rounded-md p-4'> <br/>";
+                      echo "<h3 class='text-xl font-semibold mb-2'>" . $recipe['title'] . "</h3>";
+                      echo "<p class='text-gray-600 mb-4'>" . $recipe['description'] . "</p>"; 
+                      echo "<p class='text-gray-600 mb-4'>" . $recipe['ingredients'] . "</p>"; 
+                      echo "<p class='text-gray-600 mb-4'>" . $recipe['instructions'] . "</p>"; 
+    
+                      echo "</div>";
+                  }
+              ?>
+    
           </div>
-            
-  
+
+          <div class="m-8">
+              <?php if(isset($_SESSION['user']['email'])) : ?>  
+                <a href="/recipes" class="font-semibold text-indigo-600"><span class="absolute inset-0" aria-hidden="true"></span>View all recipes <span aria-hidden="true">&rarr;</span></a>
+              <?php endif; ?>
+          </div>
+
       </section>
-  
+
       <!-- Testimonials -->
       <section class="mb-8">
           <h2 class="subtitle1 mb-4 text-center">What Our Users Say</h2>
