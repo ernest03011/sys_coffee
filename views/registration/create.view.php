@@ -53,6 +53,12 @@
         </div>
 
       </form>
+      <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
+        <p class="mt-10 text-center text-sm text-red-500">
+          Have an account?
+          <a href="/login" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Log in</a>
+        </p>
+      </div>
     </div>
   </div>
 
