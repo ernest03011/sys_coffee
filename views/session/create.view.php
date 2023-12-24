@@ -54,7 +54,7 @@
 
       <p class="mt-10 text-center text-sm text-red-500">
         Not a member?
-        <a href="#" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign in</a>
+        <a href="/register" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign in</a>
       </p>
     </div>
   </div>
