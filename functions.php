@@ -38,15 +38,20 @@
 
   function getCurrentUserId(){
   
-    $token =  $_SESSION['user']['jwt_token'];  
+
+    $has_token =  isset($_SESSION['user']['jwt_token']) ? true : false;  
+    $data = '';
     $jwt = new JwtHandler();
 
     $config = require base_path('config.php');
     $db = new Database($config['database']);
 
-    $data =  $jwt->decode($token);
+    if($has_token){
+      $token = $_SESSION['user']['jwt_token'];
+      $data =  $jwt->decode($token);
+    }
 
-    if(! $data){
+    if(! $data === ''){
     
       $user = $db->query('select * from users where email = :email', [
         'email' => $_SESSION['user']['email']
