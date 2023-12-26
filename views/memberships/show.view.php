@@ -6,10 +6,10 @@
 
 <div>
 
-  <p>Status: <?= $user['status'] == 1 ? 'active' : 'disabled'?></p>
-  <p>Billing Cycle: <?= $user['billing_cycle'] ?> month(s)</p>
-  <p>Start Date: <?= $user['start_date'] ?></p>
-  <p>Expiration Date: <?= $user['expiration_date'] ?></p>
+  <p>Status: <?= $data['active'] == 1 ? 'active' : 'disabled'?></p>
+  <p>Billing Cycle: <?= $data['subscription_duration'] ?> month(s)</p>
+  <p>Start Date: <?= $data['start_date'] ?></p>
+  <p>Expiration Date: <?= $data['expiration_date'] ?></p>
   
 </div>
 

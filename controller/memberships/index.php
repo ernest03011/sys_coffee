@@ -6,26 +6,21 @@ if (!class_exists('Database')) {
   // If not, require it
   require base_path('Database.php');
 }
+
 $config = require base_path('config.php');
 $db = new Database($config['database']);
 
-// $currentUserId = 3;
 
-// $user_email = $_SESSION['user']['email'];
-
-// $user = $db->query("select * from users where email = :email", [
-//   'email' => $user_email
-// ])->find();
-
-// testing JWT
+// working with JWT
 
 $user_id = getCurrentUserId();
-// dd($user);
 
-if(! isset($user)){
 
-  require view('memberships/index.view.php', $user = [
-    'has_membership' => false
+if(! isset($user_id)){
+
+  require view('memberships/create.view.php', 
+  [
+    'error' => $_GET['message'] ?? ''
   ]); 
 
   exit();
@@ -36,23 +31,18 @@ $result = $db->query('select * from memberships where user_id = :user_id', [
   'user_id' => $user_id // ['user_id'] was removed while testing JWT
 ])->get();
 
-// Testing - 
-
-// $result = $db->query('select * from memberships where user_id = :user_id', [
-//   'user_id' => 9
-// ])->get();
-
 
 if(count($result) == 0){
-  require view('memberships/index.view.php', $user = [
-    'has_membership' => false
+
+  require view('memberships/create.view.php', 
+  [
+    'error' => $_GET['message'] ?? ''
   ]); 
 
-  exit();
 }
 
+$data = $result[0];
 
-require view('memberships/index.view.php', $user = [
-  'has_membership' => true,
-  'membership_data' => $result[0]
+require view('memberships/show.view.php', [
+  'data' => $data
 ]);
