@@ -18,24 +18,6 @@ function submitRatingForm(ratingValue) {
   document.getElementById("rating-form").submit();
 }
 
-// document.getElementById("myForm").addEventListener("submit", function (event) {
-//   event.preventDefault(); // Prevent the form from submitting
-
-//   grecaptcha.ready(function () {
-//     grecaptcha
-//       .execute("6LcbNzkpAAAAAE7_vzhWXaHONMeu89J4mJewKcmx", { action: "submit" })
-//       .then(function (token) {
-//         // Add the token to your form data or send it to your server for verification
-//         // Here you can also submit the form using Ajax or whatever method you prefer
-//       });
-//   });
-// });
-
-// function onSubmit(token) {
-//   document.getElementById("contactForm").submit();
-//   console.log("test");
-// }
-
 function handleButtonClick(event) {
   // Prevent the default form submission
   event.preventDefault();
@@ -58,18 +40,11 @@ function handleButtonClick(event) {
       grecaptcha
         .execute(dataSiteKey, { action: "submit" })
         .then(function (token) {
-          // Add your logic to submit to your backend server here.
           console.log("reCAPTCHA token:", token);
           onSubmit(token);
         });
     });
   }
-
-  // Perform actions based on data-callback
-  //   if (dataCallback === "onSubmit") {
-  //     // Execute callback function
-  //     onSubmit($token);
-  //   }
 }
 
 function onSubmit(token) {

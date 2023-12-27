@@ -18,7 +18,7 @@ $result = false;
 try {
 
   $db->query('Insert into memberships(user_id, subscription_duration, start_date, expiration_date) VALUES (:user_id, :subscription_duration, :start_date, :expiration_date)', [
-    'user_id' => $user_id, // ['user_id'] was removed while testing JWT.
+    'user_id' => $user_id, 
     'subscription_duration' => $billing_cycle, 
     'start_date' => $start_date->format('Y-m-d'), 
     'expiration_date' => $expiration_date

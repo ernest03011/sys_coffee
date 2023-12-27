@@ -26,9 +26,9 @@ if(! isset($user_id)){
   exit();
 }
 
-// Original
+
 $result = $db->query('select * from memberships where user_id = :user_id', [
-  'user_id' => $user_id // ['user_id'] was removed while testing JWT
+  'user_id' => $user_id 
 ])->get();
 
 

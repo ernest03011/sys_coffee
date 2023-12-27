@@ -1,7 +1,5 @@
 <?php
 
-
-
 class RecipeRating {
   // Properties
 
@@ -74,16 +72,11 @@ class RecipeRating {
     $config = require base_path('config.php');
     $db = new Database($config['database']);
 
-    // $user = $db->query("select * from users where email = :email", [
-    //     'email' => $user_email
-    // ])->find();
-
     $user_id = getCurrentUserId();
 
- 
     $ratings = $db->query("select * from ratings where user_id = :user_id AND recipe_id = :recipe_id ", [
         'recipe_id' => $recipe_id,
-        'user_id' => $user_id // 
+        'user_id' => $user_id  
     ])->find();
 
     return $ratings;

@@ -9,9 +9,6 @@ $secret_key = '6LcbNzkpAAAAAE7_vzhWXaHONMeu89J4mJewKcmx';
 $post_data = $val_err = $status_msg = '';
 $status = 'error';
 
-// $test = isset($_POST['submit_frm']);
-// dd($test);
-
 if(isset($_POST['submit_frm'])){
 
   $post_data = $_POST;
@@ -27,42 +24,12 @@ if(isset($_POST['submit_frm'])){
     $val_err .= 'Please enter a valid email. <br/>';
   }
 
-  // dd($val_err);
-  // dd($_POST);
-
-
   if(empty($message)){
     $val_err .= 'Please enter a message. <br/>';
   }
 
-  // $test = $_POST['g-recaptcha-response'];
-  // dd($test);
 
   if(empty($val_err)){
-
-    // $api_url = 'https://www.google.com/recaptcha/api/siteverify';
-    // $resq_data = array(
-    //   'secret' => $secret_key,
-    //   'response' => $_POST['g-recaptcha-response'],
-    //   'remote_ip' => $_SERVER['REMOTE_ADDR']
-    // );
-
-    // $curl_config = array(
-    //   CURLOPT_URL => $api_url,
-    //   CURLOPT_POST => true,
-    //   CURLOPT_RETURNTRANSFER => true,
-    //   CURLOPT_POSTFIELDS => $resq_data
-
-    // );
-
-    // $ch = curl_init();
-    // curl_setopt_array($ch, $curl_config);
-    // $response = curl_exec($ch);
-    // curl_close($ch);
-
-    // $reponse_data = json_decode($respose);
-
-    // dd($response_data);
 
     if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])){
       $api_url = 'https://www.google.com/recaptcha/api/siteverify';
@@ -92,12 +59,8 @@ if(isset($_POST['submit_frm'])){
       }
     
       curl_close($ch);
-      // dd($response);
-      // dd(json_decode($response, true));
 
       $response_data = json_decode($response, true);
-      // dd($response_data);
-
 
       if($response_data["success"]){
 
@@ -117,11 +80,9 @@ if(isset($_POST['submit_frm'])){
         $mail->Body = "This is just a plain text message body {$name}, {$email}, {$message}";
         //$mail->addAttachment('attachment.txt');
         if (!$mail->send()) {
-            // echo 'Mailer Error: ' . $mail->ErrorInfo;
             $status_msg = 'Ups! There was an error, try again!';
 
           } else {
-            // echo 'The email message was sent.';
             $status = 'success';
             $status_msg = 'Thank you! Your contact request has been submitted sucessfully';
             $post_data = '';
