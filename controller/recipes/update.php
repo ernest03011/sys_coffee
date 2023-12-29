@@ -1,6 +1,9 @@
 <?php
 
-require base_path('Database.php');
+if (!class_exists('Database')) {
+  // If not, require it
+  require base_path('Database.php');
+}
 $config = require base_path('config.php');
 require base_path('Validator.php');
 
@@ -15,9 +18,8 @@ $recipe = $db->query("select * from recipes where recipe_id = :recipe_id", [
 // Validate if the recipe was added by current user ID. 
 
 if($recipe['user_id'] !== $user_id){
-  // redirect the user
-  header('location: /recipes');
-  die();
+
+  redirect("/recipes");
 
 }
    
@@ -55,8 +57,4 @@ $statement = $db->query('UPDATE recipes SET title = :title, instructions = :inst
 ]);
 
 
-// redirect the user
-header('location: /recipes');
-die();
-
-
+redirect("/recipes");
