@@ -41,6 +41,10 @@ class Database
     return $result;
   }
 
+  public function killConnection(){
+    $this->connection = null;
+  }
+
 
 }
   
