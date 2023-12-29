@@ -2,25 +2,23 @@
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $config = require '../config.php';
-    require '../Validator.php';
+    if (!class_exists('Database')) {
+      // If not, require it
+      require base_path('Database.php');
+    }
+    
+    $config = require base_path('config.php');
+    $db = new Database($config['database']);
+    require base_path('Validator.php');
 
     $errors = [];
 
-    $databaseSettings = $config['database'];
-  
-    $host = $databaseSettings['host'];
-    $user = $databaseSettings['user'];
-    $port = $databaseSettings['port'];
-    $dbname = $databaseSettings['dbname'];
-    $charset = $databaseSettings['charset'];
-    $password = $databaseSettings['password'];
-      // Retrieve form data
+    // Retrieve form data
     $title = trim($_POST["title"]);
     $description = trim($_POST["description"]);
     $ingredients = trim($_POST["ingredients"]);
     $instructions = trim($_POST["instructions"]);
-    // $user_id = 1;
+
     $user_id = getCurrentUserId();
 
     if(!Validator::string($title)){
@@ -36,34 +34,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $errors['instructions'] = 'The instructions are required';
     }
 
+
     if(empty($errors)){
+      $result = false;
+
       try {
-          // Establish a PDO connection (replace with your database credentials)
-          $pdo = new PDO("mysql:host=$host;port=$port;dbname=$dbname;user=$user;password=$password;charset=$charset");
 
-          // Set the PDO error mode to exception
-          $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $db->query("INSERT INTO recipes (title, description, ingredients, instructions, user_id) VALUES (:title, :description, :ingredients, :instructions, :user_id)", [
+          'title' => htmlspecialchars($title), 
+          'description' => htmlspecialchars($description),
+          'ingredients' => htmlspecialchars($ingredients), 
+          'instructions' => htmlspecialchars($instructions),
+          'user_id' => "asfas" // $user_id
+        ]);
+        
+        // $result = true;
+        require view("/recipes");
 
-          // Prepare the SQL statement
-          $stmt = $pdo->prepare("INSERT INTO recipes (title, description, ingredients, instructions, user_id) VALUES (:title, :description, :ingredients, :instructions, :user_id)");
+      } catch (Exception $e) {
+        // $result = false;
 
-          // Bind parameters
-          $stmt->bindParam(':title', htmlspecialchars($title));
-          $stmt->bindParam(':description', htmlspecialchars($description));
-          $stmt->bindParam(':ingredients', htmlspecialchars($ingredients));
-          $stmt->bindParam(':instructions', htmlspecialchars($instructions));
-          $stmt->bindParam(':user_id', $user_id);
-
-          // Execute the statement
-          $stmt->execute();
-
-          // echo "Data inserted successfully!";
-          redirect("/");
-      } catch (PDOException $e) {
-          echo "Error: " . $e->getMessage();
+        // I still need to work on passing the error message and redirecting. 
+        redirect("/submit-recipe", [
+          'message' => 'Unable to save the recipe!',
+          'modifiers' => 'type=error&color=red'
+        ]);
       }
 
-      // Close the connection
-      $pdo = null;
+      $db->killConnection();
     }
 }
