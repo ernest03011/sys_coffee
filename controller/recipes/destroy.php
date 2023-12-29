@@ -17,17 +17,13 @@ $recipe = $db->query("select * from recipes where recipe_id = :recipe_id", [
 // Validate if the recipe was added by current user ID. 
 
 if($recipe['user_id'] !== $user_id){
-  // redirect the user
-  header('location: /recipes');
-  die();
+  redirect("/recipes");
 }
 
 $db->query('DELETE from recipes WHERE recipe_id = :recipe_id', [
   'recipe_id' => $_POST['id']
 ]);
 
-// redirect the user
-header('location: /recipes');
-die();
+redirect("/recipes");
 
 

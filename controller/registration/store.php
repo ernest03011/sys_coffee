@@ -75,8 +75,9 @@ if($user){
 
   session_regenerate_id(true);
 
-  header('location: /');
-  exit();
+  // header('location: /');
+  // exit();
+  redirect("/");
 
 }
 

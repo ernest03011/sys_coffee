@@ -74,8 +74,9 @@ if($user && $is_valid_password){
       'jwt_token' => (string) $jwtToken
     ];
   
-    header('location: /');
-    exit();
+    // header('location: /');
+    // exit();
+    redirect("/");
 
 }else{
   $errors['login'] = "No matching account found for that email address and password.";

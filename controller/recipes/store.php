@@ -58,8 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $stmt->execute();
 
           // echo "Data inserted successfully!";
-          header('location: /');
-          exit();
+          redirect("/");
       } catch (PDOException $e) {
           echo "Error: " . $e->getMessage();
       }
