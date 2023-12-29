@@ -7,6 +7,20 @@ if (!class_exists('Database')) {
 $config = require base_path('config.php');
 $db = new Database($config['database']);
 
+// a
+
+$start_date = new DateTime('now', new DateTimeZone('America/Santo_Domingo'));
+
+// echo $Now->format('Y-m-d');
+
+// Clone the original $Now to $new_date
+$expiration_date = clone $start_date ;
+$expiration_date->modify('+1 year');
+
+// echo $new_date->format('Y-m-d');
+// echo $Now->format('Y-m-d'); // This will still show the original date
+
+
 // Testing JWT
 
 $user_id = getCurrentUserId();
@@ -21,7 +35,7 @@ try {
     'user_id' => $user_id, 
     'subscription_duration' => $billing_cycle, 
     'start_date' => $start_date->format('Y-m-d'), 
-    'expiration_date' => $expiration_date
+    'expiration_date' => $expiration_date->format('Y-m-d')
   ]);
 
   $result = true;
@@ -33,12 +47,12 @@ try {
 
 
 if(! $result){
-  $redirectUrl = $_SERVER["HTTP_REFERER"];
+  $url = $_SERVER["HTTP_REFERER"];
   $errorMsg = 'Unable to create the subscription, double-check the details and try again';
-  $redirectUrl = $redirectUrl . '?message=' . urlencode($errorMsg);
-  
-  header('Location: ' . $redirectUrl);
-  exit();
+
+  redirect($url, [
+    'message' => urlencode($errorMsg)
+  ]);
 }
 
 
