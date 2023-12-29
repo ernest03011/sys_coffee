@@ -69,3 +69,54 @@
     
     return $data;
   }
+
+  function redirect($url, $attributes = []) {
+    // Use parse_url to get the components of the URL
+    $parsedUrl = parse_url($url);
+
+    // If the URL has a query string
+    if (isset($parsedUrl['query'])) {
+        // Parse the existing query string into an array
+        parse_str($parsedUrl['query'], $queryParams);
+
+        // Extract the message and modifiers from the attributes
+        extract($attributes);
+
+        // Add or update the message and modifiers in the query string
+        if (isset($message)) {
+            $queryParams['message'] = $message;
+        }
+
+        if (isset($modifiers)) {
+            $queryParams['modifiers'] = $modifiers;
+        }
+
+        // dd($queryParams);
+
+        // Rebuild the query string
+        $newQueryString = http_build_query($queryParams);
+
+        // Reconstruct the URL with the updated query string
+        $url = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+        $url .= "://" . $_SERVER['HTTP_HOST'] . $parsedUrl['path'] . '?' . $newQueryString;
+    } else {
+        // If the URL does not have a query string, extract attributes
+        extract($attributes);
+
+        // Build the query string if attributes are present
+        $queryString = '';
+        if (isset($message)) {
+            $queryString .= 'message=' . $message;
+        }
+
+        if (isset($modifiers)) {
+            $queryString .= ($queryString ? '&' : '') . 'modifiers=' . $modifiers;
+        }
+
+        // Reconstruct the URL with the new query string
+        $url = $url . ($queryString ? '?' . $queryString : '');
+    }
+
+    header('Location: ' . $url);
+    exit();
+  }
