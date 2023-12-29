@@ -38,7 +38,7 @@
         if ($_GET['message'] ?? false) {
             // The message is not empty, proceed with displaying it
             // dd($_GET['message']);
-            $message = $_GET['message'] ?? '';
+            $message = urldecode($_GET['message']) ?? '';
             $type = $_GET['type'] ?? '';
             $color = $_GET['color'] ?? '';
 
