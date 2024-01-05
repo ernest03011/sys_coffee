@@ -4,6 +4,22 @@
 
 <?php require view('partials/banner.php'); ?>
 
+<!-- Outputting errors -->
+
+<?php
+        
+        
+        if (isset($_GET['message'])) {
+
+            $message = urldecode($_GET['message']) ?? '';
+            $type = $_GET['type'] ?? '';
+            $color = $_GET['color'] ?? '';
+
+            echo '<div style="color: ' . $color . ';" class="flex justify-center mt-4"  >' . htmlspecialchars($message) . '</div><br/>';
+        }
+?>
+
+<!-- END -- Outputting errors -->
 
 <main>
     <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
