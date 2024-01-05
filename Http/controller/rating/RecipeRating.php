@@ -44,10 +44,7 @@ class RecipeRating {
   public static function saveToDatabase($attributes) {
 
     $instance = new static($attributes);
-    // if (!class_exists('Database')) {
-    //     // If not, require it
-    //     require base_path('Database.php');
-    // }
+    
     $config = require base_path('config.php');
     $db = new Database($config['database']);
     
@@ -69,11 +66,6 @@ class RecipeRating {
 
   public static function hasItBeenRated($user_email, $recipe_id){
 
-    // if (!class_exists('Database')) {
-    //     // If not, require it
-    //     require base_path('Database.php');
-    // }
-    
     $config = require base_path('config.php');
     $db = new Database($config['database']);
 

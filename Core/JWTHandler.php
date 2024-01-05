@@ -2,8 +2,6 @@
 
 namespace Core;
 
-// require base_path("vendor/autoload.php");
-
 use Exception;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;

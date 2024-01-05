@@ -3,16 +3,6 @@
 use Core\Database;
 use Core\JwtHandler;
 
-// if (!class_exists('JwtHandler')) {
-//     // If not, require it
-//     require base_path("JWTHandler.php");
-// }
-
-// if (!class_exists('Database')) {
-//     // If not, require it
-//     require base_path('Database.php');
-// }
-
 function dd($value)
 {
     echo '<pre>';
@@ -48,20 +38,17 @@ function getCurrentUserId()
     $has_token = isset($_SESSION['user']['jwt_token']) ? true : false;
     $data = '';
     $jwt = new JwtHandler();
-    // dd($data);
 
     $config = require base_path('config.php');
     $db = new Database($config['database']);
 
     if ($has_token) {
         $token = $_SESSION['user']['jwt_token'];
-        // dd($token);
+
         $data = $jwt->decode($token);
 
-        // dd($data);
-        // var_dump($data);
     }
-    // dd($token);
+
     if (!$data === '') {
 
         $user = $db->query('select * from users where email = :email', [
@@ -77,7 +64,7 @@ function getCurrentUserId()
 
         $data = $jwt->decode((string) $jwtToken);
     }
-    // dd($data);
+
     return $data;
 }
 
@@ -102,8 +89,6 @@ function redirect($url, $attributes = [])
         if (isset($modifiers)) {
             $queryParams['modifiers'] = $modifiers;
         }
-
-        // dd($queryParams);
 
         // Rebuild the query string
         $newQueryString = http_build_query($queryParams);

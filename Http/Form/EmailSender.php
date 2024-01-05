@@ -2,7 +2,6 @@
 
 namespace Core\Form;
 
-// require base_path('vendor/autoload.php');
 use PHPMailer\PHPMailer\PHPMailer;
 
 class EmailSender{

@@ -51,16 +51,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $recipes = $db->query("select * from recipes")->get();
         
-        // $result = true;
-        // require view("/recipes/index.view.php");
         require view('recipes/index.view.php', [
           'recipes' => $recipes
         ]);
 
       } catch (Exception $e) {
-        // $result = false;
-
-        // I still need to work on passing the error message and redirecting. 
+         
         redirect("/submit-recipe", [
           'message' => 'Unable to save the recipe!',
           'modifiers' => 'type=error&color=red'

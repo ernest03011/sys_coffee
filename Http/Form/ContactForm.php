@@ -2,14 +2,6 @@
 
 namespace Core\Form;
 
-// require base_path('controller/Form/ContactFormHandler.php');
-// require base_path('controller/Form/EmailSender.php');
-
-// $test = base_path('controller/form/ContactFormHandler.php');
-// dd($test);
-
-
-
 class ContactForm extends FormHandler
 {
 

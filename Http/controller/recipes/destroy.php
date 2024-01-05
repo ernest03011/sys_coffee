@@ -11,7 +11,7 @@ $db = new Database($config['database']);
 
 try {
   $recipe = $db->query("select * from recipes where recipe_id = :recipe_id", [
-    'recipe_id' => $recipe_id // $_POST['id']
+    'recipe_id' => $recipe_id 
   ])->find();
 
 } catch (\Exception $e) {
@@ -35,7 +35,7 @@ if($recipe['user_id'] != $user_id){
 try {
 
   $db->query('DELETE from recipes WHERE recipe_id = :recipe_id', [
-    'recipe_id' => $recipe_id // $_POST['id']
+    'recipe_id' => $recipe_id 
   ]);
   
   $recipes = $db->query("select * from recipes")->get();

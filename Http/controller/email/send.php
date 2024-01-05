@@ -1,7 +1,5 @@
 <?php
 
-// require base_path('controller/form/ContactForm.php');
-// require base_path('Validator.php');
 use Core\Validator;
 use Core\Form\ContactForm;
 
@@ -26,7 +24,6 @@ if (isset($_POST['submit_frm'])) {
         $val_err .= 'The message is required. <br/>';
     }
 
-    // USE ISSET INSTEAD OF !EMPTY
     if (empty($val_err)) {
 
         $captcha_resp = $_POST['g-recaptcha-response'];

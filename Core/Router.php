@@ -4,8 +4,6 @@ namespace Core;
 
 use Core\Middleware\Middleware;
 
-// require base_path('Middleware/Middleware.php');
-
 class Router {
 
   protected $routes = [];
@@ -65,12 +63,9 @@ class Router {
   protected function abort($code = 404){
     http_response_code($code);
 
-    // require "../views/{$code}.php";
     require view("{$code}.php");
     
     die();
   }
 
 }
-
-// Fatal error: Uncaught Error: Class "Core\Middleware\Middleware" not found in C:\Users\*\Core\Router.php:56 Stack trace: #0 C:\Users\*\public\index.php(15): Core\Router->route() #1 {main} thrown in C:\Users\*e\Core\Router.php on line 56

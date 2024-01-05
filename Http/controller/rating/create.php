@@ -2,23 +2,11 @@
 
 use Http\controller\rating\RecipeRating;
 
-// require base_path('controller/rating/RecipeRating.php');
-
 $user_id = getCurrentUserId();
 
-// REFACTOR - VALIDATION AND SANITIZATION
 
 $rating_value = $_POST['rating_value'];
 $recipe_id = $_POST['id'];
-
-// if(!Validator::string($rating)){
-//   $errors['username'] = 'The username is required';
-// }
-// if(!Validator::string($password, 8, 255)){
-//   $errors['password'] = 'The password is required';
-// }
-
-// dd($recipe_id);
 
 $rating = RecipeRating::saveToDatabase($attributes = [
     'recipe_id' => $recipe_id,
@@ -26,18 +14,12 @@ $rating = RecipeRating::saveToDatabase($attributes = [
     'rating' => $rating_value,
 ]);
 
-// dd($rating);
-// REFACTOR - CREATE A FUNCTION TO RETURN THIS VALUE
 
-// $url = $_SERVER["HTTP_REFERER"];
 $url = getPrevUrl();
 if (!$rating) {
 
     $errorMsg = 'Unable to reate this recipe';
-    // $redirectUrl = $redirectUrl . '&message=' . urlencode($errorMsg) . '&type=error&color=red';
-
-    // header('Location: ' . $redirectUrl);
-    // exit();
+    
     redirect($url, [
         'message' => urlencode($errorMsg),
         'modifiers' => 'type=error&color=red',
@@ -45,10 +27,7 @@ if (!$rating) {
 }
 
 $errorMsg = 'Great, you have rated this recipe!';
-// $redirectUrl = $redirectUrl . '&message=' . urlencode($errorMsg) . '&type=error&color=green';
 
-// header('Location: ' . $redirectUrl);
-// exit();
 
 redirect($url, [
     'message' => urlencode($errorMsg),

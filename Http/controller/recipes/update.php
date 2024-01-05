@@ -12,7 +12,7 @@ $db = new Database($config['database']);
 
 try {
   $recipe = $db->query("select * from recipes where recipe_id = :recipe_id", [
-    'recipe_id' => $recipe_id // $_POST['id']
+    'recipe_id' => $recipe_id 
   ])->find();
 
 } catch (\Exception $e) {
