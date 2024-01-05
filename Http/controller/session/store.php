@@ -5,8 +5,8 @@ use Core\Validator;
 use Core\JwtHandler;
 
 
-$email = $_POST['email'];
-$password = $_POST['password'];
+$email = htmlspecialchars($_POST['email']);
+$password = htmlspecialchars($_POST['password']);
 
 // Sanatize and validate inputs
 
@@ -20,6 +20,7 @@ if(!Validator::email($email)){
 }
 
 if(! empty($errors)){
+
   return view('session/create.view.php', [
     'errors' => $errors
   ]);
@@ -29,11 +30,30 @@ $config = require base_path('config.php');
 
 $db = new Database($config['database']);
 
-$user = $db->query('select * from users where email = :email', [
-  'email' => $email
-])->find();
+try {
 
-$is_valid_password = password_verify($password, $user['password']);
+  $user = $db->query('select * from users where email = :email', [
+    'email' => $email
+  ])->find();
+  
+  
+} catch (\Exception $e) {
+
+  $errors['login'] = "No matching account found for that email address and password.";
+  require view('session/create.view.php', [
+    'errors' => $errors
+  ]);
+  exit();
+}
+
+
+
+if(isset($user['password'])){
+ 
+  $is_valid_password = password_verify($password, $user['password']);
+  
+}
+
 
 if($user && $is_valid_password){
  
@@ -54,6 +74,7 @@ if($user && $is_valid_password){
     redirect("/");
 
 }else{
+ 
   $errors['login'] = "No matching account found for that email address and password.";
   require view('session/create.view.php', [
     'errors' => $errors
