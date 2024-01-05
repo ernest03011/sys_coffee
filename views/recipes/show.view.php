@@ -49,7 +49,9 @@
       ?>
            
       <?php
-        require base_path('controller/rating/RecipeRating.php');
+        // require base_path('controller/rating/RecipeRating.php');
+        // use Http\controller\rating\RecipeRating;
+        use Http\controller\rating\RecipeRating;
         $is_rated_by_this_user = RecipeRating::hasItBeenRated($_SESSION['user']['email'], $recipe['recipe_id']);
 
         if($is_rated_by_this_user){          
