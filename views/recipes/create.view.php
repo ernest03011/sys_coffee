@@ -4,6 +4,22 @@
 
 <?php require view('partials/banner.php'); ?>
 
+<!-- Outputting errors -->
+
+<?php
+        
+        
+        if (isset($_GET['message'])) {
+
+            $message = urldecode($_GET['message']) ?? '';
+            $type = $_GET['type'] ?? '';
+            $color = $_GET['color'] ?? '';
+
+            echo '<div style="color: ' . $color . ';" class="flex justify-center mt-4"  >' . htmlspecialchars($message) . '</div><br/>';
+        }
+?>
+
+<!-- END -- Outputting errors -->
 
 <form action='/submit-recipe' method="POST" class="flex justify-center">
     <div class="space-y-12">
@@ -72,12 +88,13 @@
       
       </div>
 
+      <div class="mt-6 flex items-center justify-center gap-x-6">
+        <a href="/recipes" class="text-sm font-semibold leading-6 text-gray-900">Cancel</a>
+        <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+      </div>
+
     </div>
 
-    <div class="mt-6 flex items-center justify-end gap-x-6">
-      <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
-      <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
-    </div>
 </form>
   
 <?php require view('partials/footer.php'); ?>
