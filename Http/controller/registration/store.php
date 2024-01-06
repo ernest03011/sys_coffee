@@ -3,9 +3,9 @@
 use Core\Database;
 use Core\Validator;
 
-$username = $_POST['username'];
-$email = $_POST['email'];
-$password = $_POST['password'];
+$username = htmlspecialchars($_POST['username']);
+$email = htmlspecialchars($_POST['email']);
+$password = htmlspecialchars($_POST['password']);
 
 $errors = [];
 
