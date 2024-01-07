@@ -3,56 +3,97 @@
 use Core\Database;
 use Core\Validator;
 
+$config = require base_path('config.php');
+$db = new Database($config['database']);
+
 $username = htmlspecialchars($_POST['username']);
 $email = htmlspecialchars($_POST['email']);
 $password = htmlspecialchars($_POST['password']);
+$conPassword = htmlspecialchars($_POST['conPassword']);
 
 $errors = [];
 
-if(!Validator::string($username)){
+if(!Validator::string($username))
+{
   $errors['username'] = 'The username is required';
 }
-if(!Validator::string($password, 8, 255)){
-  $errors['password'] = 'The password is required';
+if(!Validator::string($password, 8, 255))
+{
+  $errors['password'] = 'Both password and confirm password are required';
 }
-if(!Validator::email($email)){
+if(!Validator::string($conPassword, 8, 255))
+{
+  $errors['password'] = 'Both password and confirm password are required';
+}
+if(!Validator::email($email))
+{
   $errors['email'] = 'The email is required';
 }
 
+if($password != $conPassword){
+  $errors['password'] = 'Password does not match';
+}
+
+
 if(! empty($errors)){
-  return view('registration/create.view.php', [
+  require view('registration/create.view.php', [
     'errors' => $errors
   ]);
 }
 
-$config = require base_path('config.php');
+try {
+  $user = $db->query('select * from users where email = :email OR username = :username', [
+    'email' => $email,
+    'username' => $username
+  ])->find();
 
-$db = new Database($config['database']);
+} catch (\Exception $th) {
+  $errors['registration'] = 'Registration failed. Please try again.';
+  require view('registration/create.view.php', [
+    'errors' => $errors
+  ]);
 
-$user = $db->query('select * from users where email = :email', [
-  'email' => $email
-])->find();
+  exit();
+}
+
 
 if($user){
 
-  header('location: /');
+  $errors['registration'] = 'Registration failed. Please try again.';
+  require view('registration/create.view.php', [
+    'errors' => $errors
+  ]);
+
   exit();
 
 } else{
 
-  $user = $db->query('Insert into users(username, email, password) VALUES (:username, :email, :password)', [
-    'username' => $username,
-    'email' => $email, 
-    'password' => password_hash($password, PASSWORD_DEFAULT)
-  ]);
+  try {
+
+    $db->query('Insert into users(username, email, password) VALUES (:username, :email, :password)', [
+      'username' => $username,
+      'email' => $email, 
+      'password' => password_hash($password, PASSWORD_DEFAULT)
+    ]);
+    
+    $_SESSION['user'] = [
+      'email' => $email
+    ];
   
-  $_SESSION['user'] = [
-    'email' => $email
-  ];
+    session_regenerate_id(true);
+  
+    redirect("/");
 
-  session_regenerate_id(true);
+  } catch (\Exception $e) {
 
-  redirect("/");
+    $errors['registration'] = 'Registration failed. Please try again.';
+    require view('registration/create.view.php', [
+      'errors' => $errors
+    ]);
+  
+    exit();
+  }
+
 
 }
 
