@@ -1,7 +1,7 @@
 <?php
 
 use Core\Validator;
-use Core\Form\ContactForm;
+use Http\Form\ContactForm;
 
 $post_data = $val_err = $status_msg = '';
 $status = 'failed';

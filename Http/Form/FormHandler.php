@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Form;
+namespace Http\Form;
 
 class FormHandler{
 

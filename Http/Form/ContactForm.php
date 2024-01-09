@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Form;
+namespace Http\Form;
 
 class ContactForm extends FormHandler
 {
@@ -11,8 +11,12 @@ class ContactForm extends FormHandler
         $smtpConfig = $config['smtp'];
 
         $formFields = $this->getFormFields();
+        $receiver_name = $formFields['name'];
 
-        $mail = new EmailSender($formFields, $smtpConfig);
+        $body = "This is just a plain text message body " . 
+        $formFields['name'] . ", " . $formFields['email'] . ", " . $formFields['message'];
+
+        $mail = new EmailSender($receiver_name, $smtpConfig, $body);
         $result = $mail->sendEmail();
 
         return $result;

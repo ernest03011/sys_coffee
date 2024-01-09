@@ -1,18 +1,21 @@
 <?php
 
-namespace Core\Form;
+namespace Http\Form;
 
 use PHPMailer\PHPMailer\PHPMailer;
 
 class EmailSender{
 
-  protected $formFields;
+  protected $receiver_name;
   protected $smtpConfig;
+  protected $body;
 
-  public function __construct(array $formFields, array $smtpConfig)
+  public function __construct(string $receiver_name, array $smtpConfig, string $body)
   {
-    $this->formFields = $formFields;  
+    $this->receiver_name = htmlspecialchars($receiver_name);  
     $this->smtpConfig = $smtpConfig;
+    $this->body = htmlspecialchars($body);
+
   }
 
   public function sendEmail()
@@ -31,17 +34,15 @@ class EmailSender{
     $mail->Password = $smtp_password;
     $mail->setFrom("{$smtp_set_from}", 'Your Name');
     $mail->addReplyTo("{$smtp_add_reply_to}", 'Your Name');
-    $mail->addAddress("{$smtp_receiver_address}", 'Receiver Name');
+    $mail->addAddress("{$smtp_receiver_address}", $this->receiver_name);
     $mail->Subject = 'Checking if PHPMailer works';
-    $mail->Body = 
-      "This is just a plain text message body 
-      {$this->formFields['name']}, {$this->formFields['email']}, {$this->formFields['message']}";
+    $mail->Body = $this->body;
     
-    if (!$mail->send()) {
+    if (!$mail->send()){
         $status = 'failed';
         $status_msg = 'Ups! There was an error, try again!';
 
-      } else {
+      }else {
         $status = 'successful';
         $status_msg = 'Thank you! Your contact request has been submitted sucessfully';
     }
