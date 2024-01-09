@@ -22,7 +22,7 @@ class JwtHandler
         $this->expire = $this->issuedAt + 86400;
 
         // Set your strong secret or signature
-        $this->secrect = "this_is_my_secrect";
+        $this->secrect = base64_encode(random_bytes(32));
     }
 
     public function encode($iss, $data)
