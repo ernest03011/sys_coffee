@@ -34,3 +34,8 @@ $router->post('/rating', '/rating/create.php')->only('auth');
 
 $router->get('/membership', '/memberships/index.php')->only('auth');
 $router->post('/membership', '/memberships/store.php')->only('auth');
+
+$router->get('/forgot-password', '/PasswordReset/index.php')->only('guest');
+$router->post('/forgot-password', '/PasswordReset/create.php')->only('guest');
+
+$router->get('/forgot-password/token/', '/PasswordReset/edit.php')->only('guest');
