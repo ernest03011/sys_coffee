@@ -42,6 +42,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Generate a log
 
+    redirect("/forgot-password", [
+      'message' => 'Email Has Been Sent, please check your email adress!',
+      'modifiers' => 'type=success&color=green'
+    ]);
+
   } catch (\Exception $th) {
     redirect("/forgot-password", [
       'message' => 'Unable to reset the password, try again!',
