@@ -115,12 +115,10 @@ class PasswordResetManager extends ContactForm
 
       ])->find();
 
-      // dd($token);
-
       $this->setTokenData($token);
 
     } catch (\Exception $e) {
-      unset($token);
+      $token = [];
     }
 
     return $token;
@@ -130,7 +128,7 @@ class PasswordResetManager extends ContactForm
   public function isTokenValidAndPending() : bool
   {
     $token = $this->getTokenFromDB();
-    $result = isset($token) ? true : false;
+    $result = count($token) != 0 ? true : false;
     return $result;
   }
 
