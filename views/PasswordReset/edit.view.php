@@ -4,9 +4,7 @@
 
 <?php require view('partials/banner.php'); ?>
 
-<?php
-        
-        
+<?php              
         if (isset($_GET['message'])) {
 
             $message = urldecode($_GET['message']) ?? '';
@@ -26,7 +24,8 @@
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
       <form class="space-y-6" action="/forgot-password" method="POST">
         <input type="hidden" name="_method" value="PATCH">
-        <input type="hidden" name="id" value="<?= $user_id ?>">
+        <input type="hidden" name="id" value="<?= $attributes['id'] ?>">
+        <input type="hidden" name="token" value="<?= $_GET["token"] ?>">
 
         <!-- Password -->
         <?php if(isset($errors['password'])) : ?>

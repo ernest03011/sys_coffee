@@ -13,6 +13,10 @@
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
       <form class="space-y-6" action="/login" method="POST">
 
+        <?php if(isset($attributes['pass_reset_successful'])) : ?>
+          <p class="text-green-900"> <?= $attributes['pass_reset_successful'] ?></p>
+        <?php endif; ?>
+
         <?php if(isset($errors['login'])) : ?>
           <p class="text-red-500"> <?= $errors['login'] ?></p>
         <?php endif; ?>

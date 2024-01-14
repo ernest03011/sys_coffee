@@ -1,8 +1,79 @@
 <?php
 
+use Core\Database;
+use Core\Validator;
+
 // Handle POST submission 
 
-// Log Password Update:
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+  // Log Password Update:
+
+  $config = require base_path('config.php');
+  $db = new Database($config['database']);
+
+  $errors = [];
+
+  // Retrieve form data
+  $password = trim($_POST["password"]);
+  $conPassword = trim($_POST["conPassword"]);
+
+  $token = $_POST['token'];
+
+
+  if(!Validator::string($password))
+  {
+    $errors['password'] = 'The password is required';
+  }
+  if(!Validator::string($conPassword))
+  {
+    $errors['password'] = 'The password is required';
+  }
+
+  if($password != $conPassword){
+    $errors['password'] = 'Password does not match';
+  }
+  
+  if(count($errors) != 0){
+    redirect("/forgot-password/token/?token={$token}", [
+      'message' => $errors['password'],
+      'modifiers' => 'type=error&color=red'
+    ]);
+  }
+
+  try {
+
+    $user_id = $_POST['id'];
+    $test = $_POST['test'];
+
+    // dd($id);
+
+    $newPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    $db->query('UPDATE users SET password = :password WHERE user_id = :user_id', [
+      'user_id' => $user_id,
+      'password' => password_hash($password, PASSWORD_DEFAULT) // $newPassword
+    ]);
+            
+    require view('session/create.view.php', $attributes = [
+      'pass_reset_successful' => "Password has been reset. Please log in!"
+    ]);
+    
+    
+  } catch (\Exception $e) {
+    redirect("/forgot-password/token/?token={$token}", [
+      'message' => "Something went wrong, try adding the password again!",
+      'modifiers' => 'type=error&color=red'
+    ]);
+
+  }
+
+
+ 
+
+}
+
+
 
 // The saveLog method is called again to log the password update in the password_reset_logs table, recording the user's ID and the action type as 'password_update'.
 

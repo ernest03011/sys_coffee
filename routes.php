@@ -39,3 +39,5 @@ $router->get('/forgot-password', '/PasswordReset/index.php')->only('guest');
 $router->post('/forgot-password', '/PasswordReset/create.php')->only('guest');
 
 $router->get('/forgot-password/token/', '/PasswordReset/edit.php')->only('guest');
+
+$router->patch('/forgot-password', "/PasswordReset/update.php")->only('guest');

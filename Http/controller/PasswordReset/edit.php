@@ -22,7 +22,9 @@ if(! $isAValidAndPendingToken){
     'modifiers' => 'type=error&color=red'
   ]);
 
-}else{
+}
+
+
   // $test = "It is a valid Token " . $token;
   // dd($test);
 
@@ -41,10 +43,12 @@ if(! $isAValidAndPendingToken){
   // I will come back to this later on. 
 
   // Require edit.view.php
-  require view("PasswordReset/edit.view.php", [
-    'user_id' => $token_data['user_id']
-  ]);
-}
+  // dd($token_data['user_id']);
+
+require view("PasswordReset/edit.view.php", $attributes = [
+ 'id' => (int)$token_data['user_id']
+]);
+
 
 
 
