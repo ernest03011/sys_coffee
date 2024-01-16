@@ -49,7 +49,7 @@ function getCurrentUserId()
 
     }
 
-    if (!$data === '') {
+    if (! $data == '') {
 
         $user = $db->query('select * from users where email = :email', [
             'email' => $_SESSION['user']['email'],
@@ -62,7 +62,7 @@ function getCurrentUserId()
 
         $_SESSION['user']['jwt_token'] = (string) $jwtToken;
 
-        $data = $jwt->decode((string) $jwtToken);
+        $data = $payload;
     }
 
     return $data;
