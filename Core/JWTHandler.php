@@ -22,7 +22,8 @@ class JwtHandler
         $this->expire = $this->issuedAt + 86400;
 
         // Set your strong secret or signature
-        $this->secrect = base64_encode(random_bytes(32));
+        $this->secrect = "HCwXE1Iii9X6Yt2pBivZy134CxwvypRCEnJA6EsmEH9Xmwgb5X6VCRW0fbrSj85xZ7t0iXZbq0Gkd1dRW7j1IUri2yTxIxKXk4Ap";
+        // $this->secrect = base64_encode(random_bytes(32));
     }
 
     public function encode($iss, $data)
@@ -48,10 +49,16 @@ class JwtHandler
         try {
             $decode = JWT::decode($token, new Key($this->secrect, 'HS256'));
             return $decode->data;
-        } catch (Exception $e) {
-            // return $e->getMessage();
-            return false;
-            // dd($e);
+        } catch ( Exception $exception) {
+
+            $_SESSION = [];
+
+            session_destroy();
+
+            $params = session_get_cookie_params();
+            setcookie('PHPSESSID', '', time() - 3600, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
+            
+            abort(Response::UNATHURIZED);
         }
     }
 }
