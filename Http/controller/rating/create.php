@@ -1,8 +1,10 @@
 <?php
 
+use Http\controller\session\Manager;
 use Http\controller\rating\RecipeRating;
 
-$user_id = getCurrentUserId();
+$user_id = Manager::getCurrentUserId();
+
 
 
 $rating_value = $_POST['rating_value'];
