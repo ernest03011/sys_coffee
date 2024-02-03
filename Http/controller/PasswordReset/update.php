@@ -44,10 +44,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
   try {
 
     $user_id = $_POST['id'];
-    $test = $_POST['test'];
-
-    // dd($id);
-
     $newPassword = password_hash($password, PASSWORD_DEFAULT);
 
     $db->query('UPDATE users SET password = :password WHERE user_id = :user_id', [
