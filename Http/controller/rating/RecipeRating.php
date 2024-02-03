@@ -4,6 +4,7 @@ namespace Http\controller\rating;
 
 use Exception;
 use Core\Database;
+use Http\controller\session\Manager;
 
 class RecipeRating {
   // Properties
@@ -58,18 +59,17 @@ class RecipeRating {
         return true;
 
       } catch(Exception $e) {
-        
         return false;
     }
     
   }
 
-  public static function hasItBeenRated($user_email, $recipe_id){
+  public static function hasItBeenRated($recipe_id){
 
     $config = require base_path('config.php');
     $db = new Database($config['database']);
 
-    $user_id = getCurrentUserId();
+    $user_id = Manager::getCurrentUserId();
 
     $ratings = $db->query("select * from ratings where user_id = :user_id AND recipe_id = :recipe_id ", [
         'recipe_id' => $recipe_id,
@@ -77,6 +77,18 @@ class RecipeRating {
     ])->find();
 
     return $ratings;
+
+  }
+
+  public static function getAllRecipesRatedByUser($user_id){
+    $config = require base_path('config.php');
+    $db = new Database($config['database']);
+
+    $recipes = $db->query("SELECT recipes.title AS recipe_name, ratings.rating FROM recipes JOIN ratings ON recipes.recipe_id = ratings.recipe_id WHERE ratings.user_id = :userId", [
+        'userId' => $user_id 
+    ])->get();
+
+    return $recipes;
 
   }
 }
