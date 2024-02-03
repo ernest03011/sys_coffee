@@ -19,11 +19,11 @@ if(!Validator::string($username))
 }
 if(!Validator::string($password, 8, 255))
 {
-  $errors['password'] = 'Both password and confirm password are required';
+  $errors['password'] = 'Both password and confirm password are required. Make sure to use strong password. Try again!';
 }
 if(!Validator::string($conPassword, 8, 255))
 {
-  $errors['password'] = 'Both password and confirm password are required';
+  $errors['password'] = 'Both password and confirm password are required. Make sure to use strong password. Try again!';
 }
 if(!Validator::email($email))
 {
@@ -39,6 +39,7 @@ if(! empty($errors)){
   require view('registration/create.view.php', [
     'errors' => $errors
   ]);
+  exit();
 }
 
 try {
