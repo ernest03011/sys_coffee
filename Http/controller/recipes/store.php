@@ -2,6 +2,7 @@
 
 use Core\Database;
 use Core\Validator;
+use Http\controller\session\Manager;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -16,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ingredients = trim($_POST["ingredients"]);
     $instructions = trim($_POST["instructions"]);
 
-    $user_id = htmlspecialchars(getCurrentUserId());
+    $user_id = Manager::getCurrentUserId();
 
     if(!Validator::string($title))
     {
@@ -35,18 +36,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $errors['instructions'] = 'The instructions are required';
     }
 
+    $is_premium = $_POST['is-premium'] == 'true' ? 1 : 0;
+
 
     if(empty($errors)){
       $result = false;
 
       try {
-
-        $db->query("INSERT INTO recipes (title, description, ingredients, instructions, user_id) VALUES (:title, :description, :ingredients, :instructions, :user_id)", [
+        
+        $db->query("INSERT INTO recipes (title, description, ingredients, instructions, user_id, is_premium) VALUES (:title, :description, :ingredients, :instructions, :user_id, :is_premium)", [
           'title' => htmlspecialchars($title), 
           'description' => htmlspecialchars($description),
           'ingredients' => htmlspecialchars($ingredients), 
           'instructions' => htmlspecialchars($instructions),
-          'user_id' => $user_id
+          'user_id' => $user_id, 
+          'is_premium' => $is_premium
         ]);
 
         $recipes = $db->query("select * from recipes")->get();
@@ -56,7 +60,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ]);
 
       } catch (Exception $e) {
-         
         redirect("/submit-recipe", [
           'message' => 'Unable to save the recipe!',
           'modifiers' => 'type=error&color=red'

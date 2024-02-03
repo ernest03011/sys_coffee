@@ -2,11 +2,12 @@
 
 use Core\Database;
 use Core\Validator;
+use Http\controller\session\Manager;
 
 $config = require base_path('config.php');
 
 $recipe_id = htmlspecialchars($_POST['id']);
-$user_id = htmlspecialchars(getCurrentUserId());
+$user_id = Manager::getCurrentUserId();
 
 $db = new Database($config['database']);
 
