@@ -1,4 +1,9 @@
-<?php require view('partials/head.php'); ?>
+<?php
+
+use Http\controller\session\Manager;
+use Http\controller\rating\RecipeRating;
+
+ require view('partials/head.php'); ?>
 
 <?php require view('partials/nav.php'); ?>
 
@@ -7,9 +12,7 @@
   <main class="mt-4">
     
     <div class="container mx-auto my-20 p-4">
-    
-        <?= $_SESSION['user']['email'] ?? 'Guest' ?>
-  
+      
       <!-- Featured Recipe -->
       <section class="mb-8 mt-8">
           <h2 class="mb-4 text-center subtitle1">Featured Recipe</h2>
@@ -20,7 +23,7 @@
     
               <?php
                   foreach ($recipes as $recipe) {
-                      echo "<div class='bg-white shadow-md rounded-md p-4'> <br/>";
+                      echo "<div class='bg-white shadow-md rounded-md p-4 border-l-4 border-orange-900'> <br/>";
                       echo "<h3 class='text-xl font-semibold mb-2'>" . $recipe['title'] . "</h3>";
                       echo "<p class='text-gray-600 mb-4'>" . $recipe['description'] . "</p>"; 
                       echo "<p class='text-gray-600 mb-4'>" . $recipe['ingredients'] . "</p>"; 
@@ -34,7 +37,7 @@
 
           <div class="m-8">
               <?php if(isset($_SESSION['user']['email'])) : ?>  
-                <a href="/recipes" class="font-semibold text-indigo-600"><span class="absolute inset-0" aria-hidden="true"></span>View all recipes <span aria-hidden="true">&rarr;</span></a>
+                <a href="/recipes" class="font-semibold text-yellow-950"><span class="" aria-hidden="true"></span>View all recipes <span aria-hidden="true">&rarr;</span></a>
               <?php endif; ?>
           </div>
 
@@ -45,21 +48,21 @@
           <h2 class="subtitle1 mb-4 text-center">What Our Users Say</h2>
   
           <!-- Testimonial Cards -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
               <!-- Testimonial Card 1 -->
-              <div class="bg-white shadow-md rounded-md p-4">
+              <div class="bg-white shadow-md rounded-md p-4 border-l-4 border-orange-900">
                   <p class="text-gray-600 mb-4">"The best coffee recipes I've ever found! I love this platform."</p>
                   <span class="font-semibold">- CoffeeLover123</span>
               </div>
   
               <!-- Testimonial Card 2 -->
-              <div class="bg-white shadow-md rounded-md p-4">
+              <div class="bg-white shadow-md rounded-md p-4 border-l-4 border-orange-900">
                   <p class="text-gray-600 mb-4">"The iced caramel latte is now my go-to drink. Amazing recipes!"</p>
                   <span class="font-semibold">- CaffeineQueen</span>
               </div>
   
               <!-- Testimonial Card 3 -->
-              <div class="bg-white shadow-md rounded-md p-4">
+              <div class="bg-white shadow-md rounded-md p-4 border-l-4 border-orange-900">
                   <p class="text-gray-600 mb-4">"This website has made my coffee brewing experience so much better."</p>
                   <span class="font-semibold">- BrewMaster</span>
               </div>
@@ -69,23 +72,30 @@
       <!-- Ratings (Visible after login) -->
       <!-- @auth -->
       <?php if(isset($_SESSION['user']['email'])) : ?>  
-            <section>
-                <h2 class="subtitle1 mb-4 text-center">Rate a Recipe</h2>
+        <section>
+            <h2 class="subtitle1 mb-4 text-center">Recipes Rated By You!</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" >
+
+                <?php
         
-                <!-- Rating Form -->
-                <div class="bg-white shadow-md rounded-md p-4">
-                    <h3 class="text-xl font-semibold mb-2">Rate the Classic Espresso</h3>
-                    <!-- Rating Stars (you can use a library for this) -->
-                    <div class="flex items-center mb-4">
-                        <i class="fas fa-star text-yellow-500 mr-1"></i>
-                        <i class="fas fa-star text-yellow-500 mr-1"></i>
-                        <i class="fas fa-star text-yellow-500 mr-1"></i>
-                        <i class="fas fa-star text-yellow-500 mr-1"></i>
-                        <i class="far fa-star text-yellow-500"></i>
-                    </div>
-                    <button class="bg-primary-brown text-white px-4 py-2 rounded-md">Submit Rating</button>
-                </div>
-            </section>
+                    $user_id = Manager::getCurrentUserId();
+                    $recipes = RecipeRating::getAllRecipesRatedByUser($user_id);
+
+                    // dd($recipes)
+                    if(count($recipes) == 0){
+                        echo "<p class='text-gray-600 mb-4'>You have NOT rated any recipes yet!</p>";
+                    }
+
+                    foreach ($recipes as $recipe) {
+                        echo "<div class='bg-white shadow-md rounded-md p-4 border-l-4 border-orange-900'> <br/>";
+                        echo "<p class='text-gray-600 mb-4'>Recipe: " . $recipe['recipe_name'] . "</h3>";
+                        echo "<p class='text-gray-600 mb-4'>Rating: " . $recipe['rating'] . "</p>";
+                        echo "</div>";
+                    }
+                ?>
+            </div>
+        </section>
+
       <!-- @endauth -->
       <?php endif; ?>
   
