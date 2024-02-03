@@ -68,7 +68,7 @@ if($user && $is_valid_password){
 
     $_SESSION['user'] = [ 
       'email' => $email,
-      'jwt_token' => (string) $jwtToken
+      'jwt_token' => $jwtToken
     ];
 
     redirect("/");
