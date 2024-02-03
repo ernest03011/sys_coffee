@@ -1,6 +1,9 @@
 <?php
 
 use Core\Database;
+use Http\controller\session\Manager;
+use Http\controller\memberships\MembershipManager;
+
 
 
 $config = require base_path('config.php');
@@ -20,26 +23,31 @@ $expiration_date = clone $start_date;
 $expiration_date->modify($billing_options[$billing_cycle]);
 
 // JWT
-$user_id = getCurrentUserId();
-$result = false;
+$user_id = Manager::getCurrentUserId();
+// $result = false;
 
-try {
+// dd($user_id);
 
-    $db->query('Insert into memberships(user_id, subscription_duration, start_date, expiration_date) VALUES (:user_id, :subscription_duration, :start_date, :expiration_date)', [
-        'user_id' => $user_id,
-        'subscription_duration' => $billing_cycle,
-        'start_date' => $start_date->format('Y-m-d'),
-        'expiration_date' => $expiration_date->format('Y-m-d'),
-    ]);
+$membershipManager = new MembershipManager($db);
+$result = $membershipManager->createMembership($user_id, $billing_cycle, $start_date, $expiration_date);
 
-    $result = true;
+// try {
 
-} catch (Exception $e) {
+//     $db->query('Insert into memberships(user_id, subscription_duration, start_date, expiration_date) VALUES (:user_id, :subscription_duration, :start_date, :expiration_date)', [
+//         'user_id' => $user_id,
+//         'subscription_duration' => $billing_cycle,
+//         'start_date' => $start_date->format('Y-m-d'),
+//         'expiration_date' => $expiration_date->format('Y-m-d'),
+//     ]);
 
-    $result = false;
-}
+//     $result = true;
 
-if (!$result) {
+// } catch (Exception $e) {
+
+//     $result = false;
+// }
+
+if (! $result) {
 
     $url = getPrevUrl();
     $errorMsg = 'Unable to create the subscription, double-check the details and try again';
