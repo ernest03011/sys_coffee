@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const modal = document.getElementById("myModal");
   const closeModalButton = document.getElementById("closeNavModal");
   const openModalButton = document.getElementById("openNavModal");
+  const mobileMenu = document.getElementById("mobile-menu");
 
   closeModalButton.addEventListener("click", function () {
     modal.classList.add("hidden"); // Add a class that hides the modal (e.g., "hidden")
@@ -9,6 +10,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   openModalButton.addEventListener("click", function () {
     modal.classList.remove("hidden"); // Add a class that hides the modal (e.g., "hidden")
+  });
+
+  mobileMenu.addEventListener("click", function () {
+    modal.classList.add("hidden"); // Add a class that hides the modal (e.g., "hidden")
   });
 });
 
