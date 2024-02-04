@@ -14,7 +14,7 @@
   
   <div class="bg-gray-50 px-4 py-3 sm:px-6 flex gap-x-4 items-center">                       
     <p class="mb-6">
-              <a href="/recipes" class="inline-flex justify-center rounded-md border border-transparent bg-gray-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">go back...</a> 
+              <a href="/recipes" class="inline-flex justify-center rounded-md border border-transparent bg-gray-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-950 focus:outline-none focus:ring-2 focus:ring-yellow-950 focus:ring-offset-2">go back...</a> 
     </p>
   </div>
 
@@ -52,7 +52,7 @@
         // require base_path('controller/rating/RecipeRating.php');
         // use Http\controller\rating\RecipeRating;
         use Http\controller\rating\RecipeRating;
-        $is_rated_by_this_user = RecipeRating::hasItBeenRated($_SESSION['user']['email'], $recipe['recipe_id']);
+        $is_rated_by_this_user = RecipeRating::hasItBeenRated($recipe['recipe_id']);
 
         if($is_rated_by_this_user){          
           echo "<p>You have rated this recipe with: " . $is_rated_by_this_user['rating'] . "</p>";
@@ -65,7 +65,7 @@
     </div>
     
     <div class="bg-gray-50 px-4 py-3 sm:px-6">
-      <a href='/recipe/edit/?id=<?= $recipe['recipe_id'] ?>' class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Edit</a>                        
+      <a href='/recipe/edit/?id=<?= $recipe['recipe_id'] ?>' class="inline-flex justify-center rounded-md border border-transparent bg-yellow-950 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-950 focus:outline-none focus:ring-2 focus:ring-yellow-950 focus:ring-offset-2">Edit</a>                        
     </div>
 
   </div>

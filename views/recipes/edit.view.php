@@ -34,7 +34,7 @@
                       <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <!-- Validate Title -->
                         <?php if(isset($errors['title'])) : ?>
-                          <p class="text-red-500"><?= $errors['title'] ?></p>
+                          <p class="text-yellow-950"><?= $errors['title'] ?></p>
                         <?php endif; ?>
                         <!-- Title -->
                         <div class="sm:col-span-4">
@@ -100,7 +100,7 @@
 
                             <button
                                 type="submit"
-                                class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                class="inline-flex justify-center rounded-md border border-transparent bg-yellow-950 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-950 focus:outline-none focus:ring-2 focus:ring-yellow-950 focus:ring-offset-2"
                             >
                                 Update
                             </button>
