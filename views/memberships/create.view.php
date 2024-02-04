@@ -4,7 +4,7 @@
 
 <?php require view('partials/banner.php'); ?>
 
-<div>
+<div class="flex justify-center flex-col items-center">
 
   <?php
 
@@ -20,7 +20,7 @@
 
   ?>
 
-  <h3>Buy a new membership</h3>
+  <h3 class="my-6">Buy a new membership</h3>
 
   <form action="/membership" method="post">
 
@@ -44,7 +44,7 @@
     <input type="radio" name="billing_cycle" id="billing_cycle" value="48" />
     <label for="billing_cycle">48</label> <br/>
 
-    <button class="mt-8" type="submit">Create subscription</button>
+    <button class="mt-6 bg-yellow-950 text-white p-2 rounded-md" type="submit">Create subscription</button>
 
   </form>
   
