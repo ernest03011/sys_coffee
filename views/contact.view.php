@@ -36,7 +36,7 @@
 
                     <button 
                         data-action="submit" 
-                        class="g-recaptcha mt-6 bg-blue-500 text-black p-2 rounded-md"
+                        class="g-recaptcha mt-6 bg-yellow-950 text-white p-2 rounded-md"
                         data-sitekey="6LcbNzkpAAAAAPvT5x0b_m25lwwG9tKZfXqt5lbE"
                         data-callback="onSubmit"
                         onclick="handleButtonClick(event)"
