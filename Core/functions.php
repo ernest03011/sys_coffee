@@ -109,13 +109,6 @@ function executeApiCall($apiUrl, $requestData, $additionalConfig = array())
     return $response;
 }
 
-// IS LOGGED IN FUNCTION
-
-function isUserLoggedIn()
-{
-    return isset($_SESSION['user']['email']);
-}
-
 function getPrevUrl()
 {
     return $_SERVER["HTTP_REFERER"];

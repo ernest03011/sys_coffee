@@ -77,5 +77,10 @@ class Manager
 
     redirect("/");
   }
+
+  public static function isUserLoggedIn() 
+  {
+    return isset($_SESSION['user']['email']);
+  }
   
 }
