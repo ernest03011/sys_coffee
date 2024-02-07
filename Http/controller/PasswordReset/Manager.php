@@ -6,7 +6,7 @@ use Core\Database;
 use Http\Form\ContactForm;
 use Http\Form\EmailSender;
 
-class PasswordResetManager extends ContactForm
+class Manager extends ContactForm
 {
   private $status;
   private $error_msg;

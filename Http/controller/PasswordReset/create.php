@@ -1,7 +1,7 @@
 <?php
 
 use Core\Database;
-use Http\controller\PasswordReset\PasswordResetManager;
+use Http\controller\PasswordReset\Manager;
 
 
 $config = require base_path('config.php');
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       ]);
     }
 
-    $pass_reset_manager = new PasswordResetManager($config);
+    $pass_reset_manager = new Manager($config);
 
     // Generate Token.
     $pass_reset_manager->generateToken();

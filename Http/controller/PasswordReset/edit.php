@@ -2,10 +2,10 @@
 
 // Verify Token Validity:
 
-use Http\controller\PasswordReset\PasswordResetManager;
+use Http\controller\PasswordReset\Manager;
 
 $config = require base_path('config.php');
-$pass_reset_manager = new PasswordResetManager($config);
+$pass_reset_manager = new Manager($config);
 
 $token = htmlspecialchars($_GET['token']);
 
