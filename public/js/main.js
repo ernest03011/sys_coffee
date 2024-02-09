@@ -38,14 +38,12 @@ function handleButtonClick(event) {
   // Perform actions based on data-action
   if (dataAction === "submit") {
     // Execute code for submit action
-    console.log("Submit action triggered");
 
     // Execute reCAPTCHA verification
     grecaptcha.ready(function () {
       grecaptcha
         .execute(dataSiteKey, { action: "submit" })
         .then(function (token) {
-          console.log("reCAPTCHA token:", token);
           onSubmit(token);
         });
     });
