@@ -31,9 +31,19 @@ class FormHandler{
 
       
     }else{
-      $status = 'sucessful';
-      $status_msg = "";
+
       $response_data = json_decode($response, true);
+      if($response_data["success"] == false){
+        
+        $status = 'failed';
+        $status_msg = "Something went wrong. Refresh/reload the page and try after 2 minutes!";
+
+      }else{
+        $status = 'sucessful';
+        $status_msg = "It worked!";
+        
+      }
+
 
     } 
 

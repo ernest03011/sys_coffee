@@ -34,18 +34,14 @@ if (isset($_POST['submit_frm'])) {
         
             $resp = $contactForm->recaptchaVerification($captcha_resp);
             [$status, $status_msg, $response_data] = $resp;
-            
-            if ($response_data["success"]) {
 
-                $response = $contactForm->submitForm();
+            if($status == 'sucessful'){
+                 $response = $contactForm->submitForm();
                 [$status, $status_msg] = $response;
-
-            } else {
-                $status_msg = 'The reCAPTCHA verification failed, please try again.';
             }
 
         } else {
-            $status_msg = 'Something went wrong, please try again.';
+            $status_msg = 'Something went wrong, refresh/reload the page, and please try again.';
         }
 
     } else {
