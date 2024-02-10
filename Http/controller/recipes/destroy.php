@@ -23,7 +23,6 @@ try {
   ]);
 }
 
-// Validate if the recipe was added by current user ID. 
 
 if($recipe['user_id'] != $user_id){
 

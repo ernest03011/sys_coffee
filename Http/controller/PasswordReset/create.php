@@ -11,7 +11,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $email = htmlspecialchars($_POST['email']);
 
-  // dd($email);
   try {
 
     $user = $db->query('select * from users where email = :email', [

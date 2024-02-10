@@ -47,10 +47,7 @@ class Manager extends ContactForm
   public function generateToken() : void
   {
     $this->token = bin2hex(random_bytes(32));
-    // $jwt = new JwtHandler();
-    // $payload = [];
-    // $jwtToken = $jwt->encode("http://localhost:8080/", $payload);
-    // return $random_token;
+
   }
 
   public function disableToken() : void
@@ -87,15 +84,12 @@ class Manager extends ContactForm
         'expiry_time' => htmlspecialchars($expiry_time)
       ]);
 
-      // $test = "Try inserting this token";
-      // dd($test);
+
 
     } catch (\Exception $e) {
-      // $this->status = "failed";
-      // $this->error_msg = "Reset Password Failed, try again!";
-
+     
       $test = "Catch errors while inserting this token";
-      // dd($e);
+
     }
 
     
@@ -234,7 +228,6 @@ class Manager extends ContactForm
       $ip_address = 0;
     }
 
-    // $result = 0;
 
     return $isIPBanned;
   }
@@ -242,8 +235,6 @@ class Manager extends ContactForm
   public function submitForm()
   {
   
-      // $formFields = $this->getFormFields();
-      // $receiver_name = $formFields['name'];
       $url = "http://localhost:8080/forgot-password/token/?token={$this->token}";
       $receiver_name = "Pedro";
       $body = "This is the token: " . $url;

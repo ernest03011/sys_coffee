@@ -12,7 +12,7 @@
             $message = urldecode($_GET['message']);
             $type = $_GET['type'] ?? '';
             $color = $_GET['color'] ?? '';
-                // Output the message with the specified type and color
+                
                 echo '<div class="message ' . htmlspecialchars($type) . '" style="color: ' . htmlspecialchars($color) . ';">' . htmlspecialchars($message) . '</div>';
             
         }

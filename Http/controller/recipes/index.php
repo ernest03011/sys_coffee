@@ -9,6 +9,7 @@ $config = require base_path('config.php');
 $db = new Database($config['database']);
 
 $user_id = Manager::getCurrentUserId();
+
 $membershipManager = new MembershipManager($db);
 $result = $membershipManager->hasAnActiveMembership($user_id);
 

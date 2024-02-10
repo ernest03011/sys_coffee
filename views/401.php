@@ -11,7 +11,6 @@
     <p class="mt-6 text-base leading-7 text-gray-600">Sorry, you need to log in to access this page!</p>
     <div class="mt-10 flex items-center justify-center gap-x-6">
       <a href="/login" class="rounded-md bg-yellow-950 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-yellow-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-950">Login</a>
-      <!-- <a href="#" class="text-sm font-semibold text-gray-900">Contact support <span aria-hidden="true">&rarr;</span></a> -->
     </div>
   </div>
 </main>

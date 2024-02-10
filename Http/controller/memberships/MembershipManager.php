@@ -27,7 +27,6 @@ class MembershipManager
       return true;
 
     } catch (\Exception $e) {
-      // dd($e);
       return false;
     }
 
@@ -45,7 +44,7 @@ class MembershipManager
       return $membership;
 
     } catch (\Exception $th) {
-      //throw $th;
+
       return false;
     }
 

@@ -24,13 +24,6 @@ if(! $isAValidAndPendingToken){
 
 }
 
-
-  // $test = "It is a valid Token " . $token;
-  // dd($test);
-
-  // Token is Marked as Used:
-  // If the token is valid, it is marked as 'used' in the password_reset_tokens table to prevent multiple uses.
-
   $pass_reset_manager->disableToken();
 
   $token_data = $pass_reset_manager->getTokenData();
